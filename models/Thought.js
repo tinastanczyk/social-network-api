@@ -17,4 +17,39 @@ const thoughtSchema = new mongoose.Schema({
 const Thought = mongoose.model('Thought', thoughtSchema);
 const handleError = (err) => console.error(err);
 
+const reactionData = [
+  {
+    reactionBody: "I love the way you think!",
+    username: "test2",
+  },
+{
+  reactionBody: "Yes, this is amazing!",
+  username: "test3",
+}
+]
+const reactionData2 = [
+  {
+    reactionBody: "I cannot stand the way you think!",
+    username: "test1",
+  },
+{
+  reactionBody: "Yes, this is awful!",
+  username: "test3",
+}
+]
+Thought.create({
+  thoughtText: "This is my first thought",
+  username: "test1",
+  reactions: reactionData,
+},
+(err) => (err ? handleError(err) : console.log('Created new document in Thought')));
+
+Thought.create({
+  thoughtText: "I don't have thoughts",
+  username: "test2",
+  reactions: reactionData2,
+},
+(err) => (err ? handleError(err) : console.log('Created new document in Thought')));
+
+
 module.exports = Thought;
