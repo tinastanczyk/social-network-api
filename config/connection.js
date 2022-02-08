@@ -1,6 +1,6 @@
-const { connect, connection, Mongoose } = require('mongoose');
+const mongoose = require('mongoose');
 // Wrap Mongoose around local connection
-Mongoose.connect('mongodb://localhost:27017/usersDB', {
+mongoose.connect('mongodb://localhost:27017/usersDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
