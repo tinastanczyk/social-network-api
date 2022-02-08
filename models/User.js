@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const thoughtSchema = require('./Thought');
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, min: 1, max: 280},
