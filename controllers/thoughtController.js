@@ -80,4 +80,37 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+  newReaction(req, res) {
+    console.log('You are adding a reaction');
+    console.log(req.body);
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((reaction) =>
+        !reaction
+          ? res
+              .status(404)
+              .json({ message: 'No reaction found with that ID :(' })
+          : res.json(reaction)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+  deleteReaction(req, res) {
+    console.log(`You are deleting a Thought's reaction`);
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: {reactionId: req.params.reactionId} } },
+      { runValidators: true, new: true }
+    )
+      .then((reaction) =>
+        !reaction
+          ? res
+              .status(404)
+              .json({ message: 'No reaction found with that ID :(' })
+          : res.json(reaction)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
 };
