@@ -3,6 +3,7 @@ const { User, Thought } = require('../models');
 module.exports = {
   getThoughts(req, res){
     Thought.find()
+      .populate('reactions')
       .then(async (thoughts) => {
         const thoughtObj = {
           thoughts,
