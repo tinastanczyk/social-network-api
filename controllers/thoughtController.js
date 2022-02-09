@@ -1,6 +1,7 @@
 const { User, Thought } = require('../models');
 
 module.exports = {
+  // finding all thoughts with associated reactions
   getThoughts(req, res){
     Thought
       .find()
@@ -13,6 +14,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+  // creating a thought and adding it to the thoughts array in the user model
   createThought(req, res) {
     Thought.create(req.body)
       .then((thought)=> {
@@ -31,6 +33,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // finding a single thought by id and its associated reactions
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .populate('reactions')
@@ -47,9 +50,8 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+  // finding a thought by id and updating it 
   updateThought(req, res) {
-    // console.log('You are updating a Thought');
-    // console.log(req.body);
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $set: { thoughtText: req.body.thoughtText, reactions: req.body.reactions } },
@@ -64,6 +66,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // finding a thought by id and deleting it
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((thought) =>
@@ -78,9 +81,8 @@ module.exports = {
         res.status(500).json(err);
       });
   },
+  // finding a thought by id and adding a reaction to the reactions array in the thought model
   newReaction(req, res) {
-    // console.log('You are adding a reaction');
-    // console.log(req.body);
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $addToSet: { reactions: req.body } },
@@ -95,8 +97,8 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  // finding thought by id and reaction by reactionId and deleting the reaction from the reactions array in the thought model
   deleteReaction(req, res) {
-    // console.log(`You are deleting a Thought's reaction`);
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: {reactionId: req.params.reactionId} } },

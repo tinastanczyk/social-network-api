@@ -1,3 +1,4 @@
+// requiring express, routes and the connection.js
 const express = require('express');
 const routes = require('./routes');
 const db = require('./config/connection');
@@ -9,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(routes);
-
+// connecting database to server
 db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);

@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
-// const thoughtSchema = require('./Thought');
-
+// creating a user schema which includes each user's associated thoughts and friends (a self-reference)
 const userSchema = new Schema({
   thoughts: [
     {type: Schema.Types.ObjectId, ref: 'thought'}
@@ -15,11 +14,11 @@ const userSchema = new Schema({
   },
   id: false,
 });
-
+// creating a virtual called friendCount that returns the total amount of friends each user has
 userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 });
-
+// creating a user model
 const User = model('user', userSchema);
 const handleError = (err) => console.error(err);
 
