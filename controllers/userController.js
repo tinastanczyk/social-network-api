@@ -54,7 +54,7 @@ module.exports = {
         !user
           ? res.status(404).json({ message: 'No such user exists' })
           : Thought.deleteMany({username: user.username})
-          .then(res.json(user))
+          .then(res.json("User and associated thoughts deleted!"))
           // res.json({
           //   user,
           // })

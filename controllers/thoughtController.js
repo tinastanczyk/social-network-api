@@ -2,13 +2,11 @@ const { User, Thought } = require('../models');
 
 module.exports = {
   getThoughts(req, res){
-    Thought.find()
+    Thought
+      .find()
       .populate('reactions')
       .then(async (thoughts) => {
-        const thoughtObj = {
-          thoughts,
-        };
-        return res.json(thoughtObj);
+        return res.json(thoughts);
       })
       .catch((err) => {
         console.log(err);
@@ -50,8 +48,8 @@ module.exports = {
       });
   },
   updateThought(req, res) {
-    console.log('You are updating a Thought');
-    console.log(req.body);
+    // console.log('You are updating a Thought');
+    // console.log(req.body);
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $set: { thoughtText: req.body.thoughtText, reactions: req.body.reactions } },
@@ -81,8 +79,8 @@ module.exports = {
       });
   },
   newReaction(req, res) {
-    console.log('You are adding a reaction');
-    console.log(req.body);
+    // console.log('You are adding a reaction');
+    // console.log(req.body);
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $addToSet: { reactions: req.body } },
@@ -98,7 +96,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   deleteReaction(req, res) {
-    console.log(`You are deleting a Thought's reaction`);
+    // console.log(`You are deleting a Thought's reaction`);
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: {reactionId: req.params.reactionId} } },
