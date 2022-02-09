@@ -1,4 +1,4 @@
-# social-media-api MIT [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# social-network-api MIT [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   ## Description
   The motivation for this project was to utilize MongoDB with Mongoose. This application can find, create, update and delete Users and Thoughts created by Users. It can also add friends to Users and Reactions to Thoughts. I learned how to navigate throught the MongoDB, modularize routes and controllers, connect my server to my Mongo Database and performed CRUD operations using Mongoose.
 
@@ -10,7 +10,7 @@
   
   ## Installation
   Run in terminal:
-  
+
   * node utils/seed.js 
   * node server.js
 
