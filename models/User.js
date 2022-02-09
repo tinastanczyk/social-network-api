@@ -23,18 +23,4 @@ userSchema.virtual('friendCount').get(function () {
 const User = model('user', userSchema);
 const handleError = (err) => console.error(err);
 
-// User.create({
-//   username: "test1",
-//   email: "test1@email.com"
-// },
-// (err) => (err ? handleError(err) : console.log('Created new document in User'))
-// );
-
-// User.create({
-//   username: "test2",
-//   email: "test2@email.com"
-// },
-// (err) => (err ? handleError(err) : console.log('Created new document in User'))
-// );
-
 module.exports = User;
