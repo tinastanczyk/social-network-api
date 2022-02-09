@@ -19,7 +19,7 @@ module.exports = {
     Thought.create(req.body)
       .then((thought)=> {
         return User.findOneAndUpdate(
-          { _id: req.body.username },
+          { username: req.body.username },
           { $addToSet: { thoughts: thought._id } },
           { new: true }
         );
@@ -35,8 +35,8 @@ module.exports = {
   },
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
+      .populate('reactions')
       .select('-__v')
-      .lean()
       .then(async (thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })

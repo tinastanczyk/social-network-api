@@ -19,7 +19,6 @@ module.exports = {
       .populate('thoughts')
       .populate('friends')
       .select('-__v')
-      .lean()
       .then(async (user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
@@ -54,9 +53,11 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No such user exists' })
-          : res.json({
-            user,
-          })
+          : Thought.deleteMany({username: user.username})
+          .then(res.json(user))
+          // res.json({
+          //   user,
+          // })
       )
       .catch((err) => {
         console.log(err);
